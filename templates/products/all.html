@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+    A-Z List
+{% endblock %}
+
+{% block css %}
+<!-- Wide card with share menu button -->
+<style>
+    .mdl-card {
+        width: 100%;
+    }
+
+    .mdl-card .mdl-card__media {
+        background: none;
+        max-width: 50%;
+        max-height: 100%;
+        height: 100%;
+        margin-right: 10px;
+    }
+
+    .mdl-card > .mdl-card__title {
+        /*color: #fff;*/
+        height: 176px;
+    }
+
+    .mdl-card .mdl-card__media img {
+        max-height: 100%;
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+        border: none;
+        margin: auto;
+    }
+
+    .mdl-card > .mdl-card__menu {
+        color: #fff;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="mdl-grid">
+
+
+    {% for letter, product_items in products.items %}
+
+    {% include "common/single-line-letter.html" with letter=letter %}
+
+    {% for item in product_items %}
+        {% include "common/single_product_card.html" with product=item %}
+    {% endfor %}
+
+    {% endfor %}
+
+
+</div>
+
+{% endblock %}

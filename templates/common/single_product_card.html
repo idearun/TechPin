@@ -1,0 +1,47 @@
+{% load staticfiles %}
+
+<div class="mdl-cell mdl-cell--2-col mdl-cell--6-col-tablet mdl-cell--12-col-phone">
+
+    <div class="mdl-card mdl-shadow--2dp through mdl-shadow--16dp">
+        <div class="mdl-card__title mdl-card--border">
+            <div class="mdl-card__media">
+                <a href="/{{ product.slug }}">
+                    {% if product.version.logo %}
+                    <img src="{{ product.version.logo.url }}" class="card-logo" alt=""/>
+                    {% else %}
+                    <img src="{% static 'images/common/logo/nologo.jpg' %}" class="card-logo" alt=""/>
+                    {% endif %}
+                </a>
+            </div>
+            <div class="">
+                <h4 class="no-top-margin">
+                    <a href="/{{product.slug}}">
+                        {{product}}
+                    </a>
+                </h4>
+            </div>
+        </div>
+        <div class="mdl-card__supporting-text single-card-description">
+            {% if product.version.description_en %}
+                {{ product.version.description_en }}
+            {% else %}
+                No Description Available Yet.
+            {% endif %}
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <!--button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" disabled>
+                <i class="material-icons">share</i>
+            </button-->
+            <div class="mdl-typography--text-center">
+                {% for i in "xxxxx" %}
+                {% if forloop.counter <= product.average_p_rate %}
+                <i class="material-icons md-18 mdl-color-text--orange-600">star</i>
+                {% else %}
+                <i class="material-icons md-18">star</i>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>

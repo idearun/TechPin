@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Message{% endblock title %}
+
+{% block content %}
+<div class="mdl-cell--12-col mdl-typography--text-center">
+    <h3>{{ message }}</h3>
+    <br/>
+    {% if home %}
+    <a href="{% url 'home' %}">{% trans "Home" %}</a>
+    {% endif %}
+    {% if login %}
+    <a href="{% url 'login' %}">{% trans "Login" %}</a>
+    {% endif %}
+    <br/>
+</div>
+{% endblock %}

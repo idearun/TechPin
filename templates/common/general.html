@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="mdl-cell--12-col mdl-typography--text-center">
+    <h3>{{ page_header }}:</h3>
+
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" value="{{ submit_name }}">
+    </form>
+</div>
+{% endblock %}

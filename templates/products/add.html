@@ -1,0 +1,87 @@
+{% extends 'base_text_page.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'libs/mdl-select/getmdl-select.min.css' %}">
+<link rel="stylesheet" href="{% static 'libs/chosen/chosen.min.css' %}">
+{% endblock %}
+
+
+{% block page_title %}
+{% trans "Add Product" %}:
+{% endblock %}
+
+{% block page_text %}
+
+<form method="post" action="{% url 'add_product' %}" class="mdl-cell--12-col mdl-typography--text-center">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.name_en.errors }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="p_name" name="name_en" value="{{ form.name_en.value }}">
+            <label class="mdl-textfield__label" for="p_name">Product Name...</label>
+        </div>
+    </div>
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.website.errors }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="url" id="p_website" name="website" value="{{ form.website.value }}">
+            <label class="mdl-textfield__label" for="p_website">Product Website...</label>
+        </div>
+    </div>
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.types.errors }}
+        <input name="product_type" type="hidden" value="">
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+            <input name="p_type" class="mdl-textfield__input" type="text" id="p_type" readonly>
+            <label for="p_type" class="mdl-textfield__label">Select a Type...</label>
+            <ul for="p_type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                {% for item in types %}
+                <li class="mdl-menu__item" data-val="{{item.id}}">{{item}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.categories.errors }}
+        <select name="categories" data-placeholder="Categories" style="width:300px;" multiple class="chosen-select">
+            {% for cat in categories %}
+            <option value="{{cat.id}}">{{cat}}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <hr/>
+    <div class="mdl-cell--12-col">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+                type="submit">
+            {% trans "Next" %}
+        </button>
+    </div>
+
+</form>
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script src="{% static 'libs/mdl-select/getmdl-select.min.js' %}"></script>
+<script src="{% static 'libs/js/jquery.min.js' %}"></script>
+<script src="{% static 'libs/chosen/chosen.jquery.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        getmdlSelect.init(".getmdl-select");
+        $(".chosen-select").chosen();
+    });
+
+    $(document).on('submit','form',function(e){
+        $('input[name=product_type]').val($('#p_type').data('val'));
+    });
+</script>
+{% endblock %}

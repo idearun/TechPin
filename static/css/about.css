@@ -1,0 +1,128 @@
+.banner-ribbon {
+    width: 100%;
+    height: 40vh;
+    background-color: #3F51B5;
+    flex-shrink: 0;
+    background-size: cover;
+}
+
+.demo-main {
+    margin-top: -35vh;
+    flex-shrink: 0;
+}
+
+.demo-header .mdl-layout__header-row {
+    padding-left: 40px;
+}
+
+.demo-container {
+    max-width: 1600px;
+    width: calc(100% - 16px);
+    margin: 0 auto;
+}
+
+.demo-content {
+    border-radius: 2px;
+    padding: 80px 56px;
+    margin-bottom: 80px;
+}
+
+.demo-layout.is-small-screen .demo-content {
+    padding: 40px 28px;
+}
+
+.demo-content h3 {
+    margin-top: 48px;
+}
+
+.demo-footer {
+    padding-left: 40px;
+}
+
+.demo-footer .mdl-mini-footer--link-list a {
+    font-size: 13px;
+}
+
+.mdl-layout__header, .mdl-layout__drawer-button, .mdl-layout__header-row .mdl-navigation__link {
+    color: #003366;
+}
+
+#categories {
+    cursor: pointer
+}
+
+.mdl-layout__header .mdl-layout__drawer-button {
+    color: #003366;
+}
+
+/*rating stars*/
+.star-rating__checkbox {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+.star-rating__star {
+    display: inline-block;
+    padding: 3px;
+    vertical-align: middle;
+    line-height: 1;
+    font-size: 1.5em;
+    color: #ABABAB;
+    -webkit-transition: color .2s ease-out;
+    transition: color .2s ease-out;
+}
+
+.star-rating__star:hover {
+    cursor: pointer;
+}
+
+.star-rating__star.is-selected {
+    color: #FFD700;
+}
+
+.star-rating__star.is-disabled:hover {
+    cursor: default;
+}
+
+i.fa-google-play-badge {
+    width: 100%;
+    height: 200%;
+    background: url("../images/common/logo/google-play-badge.png") no-repeat;
+    background-size: contain;
+    vertical-align: middle;
+}
+i.fa-apple-store-badge {
+    width: 100%;
+    height: 200%;
+    background: url("../images/common/logo/apple.png") no-repeat;
+    background-size: contain;
+    vertical-align: middle;
+}
+.navbar-logo {
+    height: 100%;
+}
+.navbar-logo img {
+    max-height: 100%;
+    width: auto;
+    height: 60px;
+}
+
+
+a.product-title,a.product-title:visited{
+    color: #444444;
+    text-decoration: none;
+}
+
+a.product-title:hover{
+    color: #000;
+}
+
+.product-title i.fa{
+    font-size: 25px;
+}

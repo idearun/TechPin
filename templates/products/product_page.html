@@ -1,0 +1,167 @@
+{% extends 'base_text_page.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    {{ product }}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'libs/font-awesome/css/font-awesome.min.css' %}">
+{% endblock %}
+
+{% block banner %}
+    {% if version.banner %}
+        url({{ version.banner.url }});
+    {% endif %}
+{% endblock %}
+
+{% block page_title %}
+
+    {% if version.logo %}
+        <img src="{{ version.logo.url }}" width="100px">
+    {% else %}
+        <img src="{% static 'images/common/logo/nologo.jpg' %}" width="100px">
+    {% endif %}
+
+    <a href="{{ product.website }}" target="_blank" rel="noindex, nofollow" class="product-title">
+        {{ product }} <i class="fa fa-external-link" aria-hidden="true"></i>
+    </a>
+
+    <a href="{% url 'add_version' product.id %}" target="_blank"
+       class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+        <i class="material-icons">edit</i>
+    </a>
+
+    <!--?<a href="{% url 'add_version' product.id %}" target="_blank">{% trans "Edit" %}</a>-->
+
+    <h6>People ({{ product.p_rate_count }}):
+        <span>{% include "common/rate_viewer.html" with rate=product.average_p_rate %}</span></h6>
+
+    <div class="mdl-cell mdl-cell--12-col">
+        <form method="post" name="rate" action="{% url 'rate_product' product.slug %}">
+            {% csrf_token %}
+            <h6>
+                <star-rating value="{% if rate_form.instance %} {{ rate_form.instance.rate }} {% else %} 3 {% endif %}"
+                             name="rate" title="You:"
+                             id="id_rate" required="required"></star-rating>
+            </h6>
+        </form>
+    </div>
+
+    <h6 class="npscore">
+        NPS Score: {{ product.n_p_score }}
+    </h6>
+
+{% endblock %}
+
+<h6>Editors: {% include "common/rate_viewer.html" with rate=product.average_e_rate %}</h6>
+
+
+{% block page_text %}
+
+    {% include "common/tabs_container.html" %}
+
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'libs/js/jquery.min.js' %}"></script>
+    <script src="{% static 'libs/js/vue.min.js' %}"></script>
+    <script type="text/x-template" id="template-star-rating">
+        <div class="star-rating">
+            <span v-if="title">${title}</span>
+            <label class="star-rating__star" v-for="rating in ratings"
+                   :class="{'is-selected': ((value >= rating) && value != null), 'is-disabled': disabled}"
+                   v-on:click="set(rating)" v-on:mouseover="star_over(rating)" v-on:mouseout="star_out">
+
+                <input class="star-rating star-rating__checkbox"
+                       type="radio" :value="rating" :name="name"
+                       v-model="value" :disabled="disabled">★
+            </label>
+        </div>
+    </script>
+    <script>
+        Vue.component('star-rating', {
+            delimiters: ['${', '}'],
+            props: {
+                name: String,
+                value: null,
+                id: String,
+                disabled: Boolean,
+                required: Boolean,
+                title: String
+            },
+
+            template: '#template-star-rating',
+
+            /*
+             * Initial state of the component's data.
+             */
+            data: function () {
+                return {
+                    temp_value: null,
+                    ratings: [1, 2, 3, 4, 5]
+                };
+            },
+
+            methods: {
+                /*
+                 * Behaviour of the stars on mouseover.
+                 */
+                star_over: function (index) {
+                    var self = this;
+
+                    if (!this.disabled) {
+                        this.temp_value = this.value;
+                        return this.value = index;
+                    }
+
+                },
+
+                /*
+                 * Behaviour of the stars on mouseout.
+                 */
+                star_out: function () {
+                    var self = this;
+
+                    if (!this.disabled) {
+                        return this.value = this.temp_value;
+                    }
+                },
+
+                /*
+                 * Set the rating of the score
+                 */
+                set: function (value) {
+                    var self = this;
+                    if (!this.disabled) {
+
+                        $.ajax({
+                            type: "POST",
+                            url: $('form[name=rate]').attr('action'),
+                            data: $('form[name=rate]').serialize(),
+                            success: function (data) {
+                                if (!data.user) {
+                                    window.location.href = "{% url 'login' %}";
+                                }
+                            },
+                            error: function (data) {
+                                alert('something went wrong! try again please.');
+                            }
+                        });
+
+                        this.temp_value = value;
+                        return this.value = value;
+                    }
+                }
+            }
+
+        });
+
+        new Vue({
+            el: '#app',
+            delimiters: ['${', '}']
+        });
+    </script>
+{% endblock %}

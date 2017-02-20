@@ -1,0 +1,117 @@
+#show-modal-add-new {
+    position: fixed;
+    bottom: 110px;
+    right: 10px;
+}
+
+#categories {
+    cursor: pointer
+}
+
+.modal-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    display: table;
+    transition: opacity .3s ease;
+}
+
+.modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.modal-container {
+    width: 500px;
+    margin: 0px auto;
+    padding: 20px 30px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+    transition: all .3s ease;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+@media screen and (max-device-width: 480px) {
+    .modal-container {
+        width: 300px;
+    }
+}
+
+.modal-header h3 {
+    margin-top: 0;
+    color: #42b983;
+}
+
+.modal-body {
+    margin: 20px 0;
+}
+
+.modal-default-button {
+    float: right;
+}
+
+.mdl-list__item-avatar, .mdl-list__item-avatar.material-icons {height: 50px;width: 50px;font-size: 50px}
+/* Rules for sizing the icon. */
+.material-icons.md-18 {
+    font-size: 18px;
+}
+
+.material-icons.md-24 {
+    font-size: 24px;
+}
+
+.material-icons.md-36 {
+    font-size: 36px;
+}
+
+.material-icons.md-48 {
+    font-size: 48px;
+}
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.material-icons.md-dark.md-inactive {
+    color: rgba(0, 0, 0, 0.26);
+}
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light {
+    color: rgba(255, 255, 255, 1);
+}
+
+.material-icons.md-light.md-inactive {
+    color: rgba(255, 255, 255, 0.3);
+}
+.top-list-logo {
+    background-image: url(../images/common/logo/nologo.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 50px;
+    width: 50px;
+    margin-right: 16px;
+}
+.navbar-logo {
+    height: 100%;
+}
+.navbar-logo img {
+    max-height: 100%;
+    height: 60px;
+    width: auto;
+    -webkit-filter: invert(100%); /* Safari 6.0 - 9.0 */
+    filter: invert(100%);
+}
+.no-top-margin {margin-top: 0}
+.single-card-description {height: 92px;max-height: 92px; text-overflow: ellipsis}
+.no-filter {filter: invert(0)!important; -webkit-filter:invert(0)!important;}
+
+.g-signin2{margin: 1em;}
+
+.center-block{display: inline-block;margin-left: auto;margin-right: auto;}

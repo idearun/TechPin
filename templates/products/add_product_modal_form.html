@@ -1,0 +1,44 @@
+{% load i18n %}
+<form method="post" action="{% url 'add_product' %}">
+    {% csrf_token %}
+
+    <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="p_name" name="name_en">
+        <label class="mdl-textfield__label" for="p_name">Product Name...</label>
+    </div>
+
+    <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="url" id="p_website" name="website">
+        <label class="mdl-textfield__label" for="p_website">Product Website...</label>
+    </div>
+
+    <input name="product_type" type="hidden" value="">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+        <input name="p_type" class="mdl-textfield__input" type="text" id="p_type" readonly>
+        <label for="p_type" class="mdl-textfield__label">Select a Type...</label>
+        <ul for="p_type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+            {% for item in types %}
+            <li class="mdl-menu__item" data-val="{{item.id}}">{{item}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    <select name="categories" data-placeholder="Categories" style="width:300px;" multiple class="chosen-select">
+        {% for cat in categories %}
+        <option value="{{cat.id}}">{{cat}}</option>
+        {% endfor %}
+    </select>
+
+
+    <hr/>
+
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+            type="submit">
+        {% trans "Next" %}
+    </button>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
+            @click.prevent="$emit('close')">
+        Cancel
+    </button>
+</form>

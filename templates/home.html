@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}
+    TOP 25
+{% endblock %}
+        
+{% block css %}
+<link rel="stylesheet" href="{% static 'libs/mdl-select/getmdl-select.min.css' %}">
+<link rel="stylesheet" href="{% static 'libs/chosen/chosen.min.css' %}">
+    <style>
+    .disabled{
+        pointer-events:none;
+        opacity: 0.2;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div class="mdl-grid">
+
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+        {% if category %}
+        <h3 class="mdl-typography--text-center">{% trans "Top Startups & Products in" %}: {{ category }}</h3>
+        {% endif %}
+    </div>
+
+    <!-- people -->
+    {% include "common/top-list.html" with list_id="users-top-25" list=top_p_products title="TOP (People - Beta)" %}
+
+    <!-- editors -->
+    {% include "common/top-list.html" with list_id="editors-top-25" list=top_e_products title="TOP (Editors)" disabled="disabled" %}
+
+    <!-- new -->
+    {% include "common/top-list.html" with list_id="new-top-25" list=top_new_products title="NEW" %}
+
+</div>
+
+<!-- Register a New Startup button -->
+<div class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored"
+     id="show-modal-add-new" @click="showModal = true">
+    <span class="material-icons">add</span>
+</div>
+<div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--left" for="show-modal-add-new">
+    Add a New Startup!
+</div>
+
+
+<!-- use the modal component, pass in the prop -->
+<modal v-if="showModal" class="mdl-typography--text-center" @close="showModal = false">
+    <h3 slot="header">New Startup</h3>
+</modal>
+
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script src="{% static 'libs/mdl-select/getmdl-select.min.js' %}"></script>
+<script src="{% static 'libs/chosen/chosen.jquery.min.js' %}"></script>
+<!-- template for the modal component -->
+<script type="text/x-template" id="modal-template">
+    <transition name="modal">
+        <div class="modal-mask">
+            <div class="modal-wrapper">
+                <div class="modal-container">
+
+                    <div class="modal-header">
+                        <slot name="header">
+                            {% trans "Add Product" %}
+                        </slot>
+                    </div>
+
+                    <div class="modal-body">
+                        <slot name="body">
+                            {% include "products/add_product_modal_form.html" %}
+                        </slot>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </transition>
+</script>
+
+<script>
+    // register modal component
+    Vue.component('modal', {
+        template: '#modal-template',
+        mounted: function () {
+            var u = document.querySelectorAll('.modal-body .mdl-textfield');
+            componentHandler.upgradeElements(u);
+            getmdlSelect.init(".getmdl-select");
+            $(".chosen-select").chosen();
+        }
+    });
+
+    // start app
+    var app = new Vue({
+        el: '#app',
+        data: {
+            showModal: false,
+        }
+    });
+    $(document).on('submit', 'form', function (e) {
+        $('input[name=product_type]').val($('#p_type').data('val'));
+    });
+
+</script>
+{% endblock js %}

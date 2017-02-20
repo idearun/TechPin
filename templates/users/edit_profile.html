@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Edit Profile{% endblock title %}
+
+{% block content %}
+
+    <h3>{% trans "Update Profile Data" %}:</h3>
+
+    <form method="post" action="">
+        {% csrf_token %}
+
+        {{ user_form.as_p }}
+
+        <input type="submit" value="Update" class="btn btn-success col-md-3">
+        <a href="{% url 'home' %}">{% trans "Cancel" %}</a>
+    </form>
+
+{% endblock %}

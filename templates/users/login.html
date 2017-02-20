@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Login{% endblock title %}
+
+{% block head %}
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="{{ gp_client_id }}">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+{% endblock %}
+
+{% block content %}
+
+<form method="post" action="" class="mdl-cell--12-col mdl-typography--text-center">
+
+    <h3>{% trans "Enter TechPin" %}:</h3>
+
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.email.errors }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="email" name="email" {% if form.email.value %}value="{{ form.email.value }}"{% endif %}>
+            <label class="mdl-textfield__label" for="email">Email...</label>
+        </div>
+    </div>
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.password.errors }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="password" id="password" name="password">
+            <label class="mdl-textfield__label" for="password">Password...</label>
+        </div>
+    </div>
+
+    <div class="mdl-cell--12-col">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+                type="submit">
+            {% trans "Login" %}
+        </button>
+    </div>
+    <br />
+    <a href="{% url 'signup' %}">{% trans "Signup" %}</a>
+    &nbsp;
+    <a href="{% url 'forgot_pass' %}">{% trans "Forgot Password" %}</a>
+    <br />
+    <div class="mdl-cell--12-col">
+        <div class="g-signin2 center-block" data-onsuccess="onSignIn" data-theme="dark"></div>
+    </div>
+</form>
+{% endblock %}
+
+{% block js %}
+    {{super}}
+    <script>
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = (cookies[i]).trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function onSignIn(googleUser) {
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+
+        var csrftoken = getCookie('csrftoken');
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/google-login');
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+
+            // redirects the user if he is still signed in google
+            var auth2 = gapi.auth2.getAuthInstance();
+            if (auth2.isSignedIn.get() == true) {
+                window.location.replace("/");
+            }
+        };
+        xhr.send('idtoken=' + id_token);
+    };
+
+    </script>
+{% endblock %}

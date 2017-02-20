@@ -1,0 +1,173 @@
+{% extends 'base_text_page.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}
+    Add Product Version
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/add_version.css' %}">
+{% endblock %}
+
+{% block page_title %}
+{% trans "Add Product Version" %}:
+{% endblock %}
+
+{% block page_text %}
+
+<form method="post" enctype="multipart/form-data" action=""
+      class="mdl-cell--8-col-desktop mdl-cell--2-offset-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-typography--text-center">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <!--?['description_en', 'email', 'android_app', 'ios_app', 'linkedin', 'twitter', 'instagram', 'extra_url',-->
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        <div class="mdl-textfield mdl-js-textfield">
+            <textarea class="mdl-textfield__input" type="text" rows="5" id="description_en"
+                      name="description_en">{% if form.description_en.value %}{{ form.description_en.value }}{% endif %}</textarea>
+            <label class="mdl-textfield__label" for="description_en">Product Description...</label>
+        </div>
+
+        {{ form.description_en.errors }}
+    </div>
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.email.errors }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="email" id="email" name="email" {% if form.email.value %} value="{{ form.email.value }}" {% endif %}>
+            <label class="mdl-textfield__label" for="email">E-Mail Address</label>
+        </div>
+    </div>
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.android_app.errors }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="url" id="android_app" name="android_app" {% if form.android_app.value %} value="{{ form.android_app.value }}" {% endif %}>
+            <label class="mdl-textfield__label" for="android_app">Andriod App Url</label>
+        </div>
+    </div>
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.ios_app.errors }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="url" id="ios_app" name="ios_app" {% if form.ios_app.value %} value="{{ form.ios_app.value }}" {% endif %}>
+            <label class="mdl-textfield__label" for="ios_app">iOS App Url</label>
+        </div>
+    </div>
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.linkedin.errors }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="url" id="linkedin" name="linkedin" {% if form.linkedin.value %} value="{{ form.linkedin.value }}" {% endif %}>
+            <label class="mdl-textfield__label" for="linkedin">Linkedin</label>
+        </div>
+    </div>
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.twitter.errors }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="url" id="twitter" name="twitter" {% if form.twitter.value %} value="{{ form.twitter.value }}" {% endif %}>
+            <label class="mdl-textfield__label" for="twitter">Twitter</label>
+        </div>
+    </div>
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.instagram.errors }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="url" id="instagram" name="instagram" {% if form.instagram.value %} value="{{ form.instagram.value }}" {% endif %}>
+            <label class="mdl-textfield__label" for="instagram">Instagram</label>
+        </div>
+    </div>
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.extra_url.errors }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="url" id="extra_url" name="extra_url" {% if form.extra_url.value %} value="{{ form.extra_url.value }}" {% endif %}>
+            <label class="mdl-textfield__label" for="extra_url">Extra URL</label>
+        </div>
+    </div>
+
+
+    <!--?'year', 'city', 'country', 'employees', 'logo', 'banner']-->
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.extra_url.errors }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="number" id="year" name="year" {% if form.year.value %} value="{{ form.year.value }}" {% endif %}>
+            <label class="mdl-textfield__label" for="year">Launch Year</label>
+        </div>
+    </div>
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.city.errors }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="city" name="city" {% if form.city.value %} value="{{ form.city.value }}" {% endif %}>
+            <label class="mdl-textfield__label" for="city">City</label>
+        </div>
+    </div>
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.country.errors }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="country" name="country" {% if form.country.value %} value="{{ form.country.value }}" {% endif %}>
+            <label class="mdl-textfield__label" for="country">Country</label>
+        </div>
+    </div>
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.employees.errors }}
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="number" id="employees" name="employees" {% if form.employees.value %} value="{{ form.employees.value }}" {% endif %}>
+            <label class="mdl-textfield__label" for="employees">#Employees</label>
+        </div>
+    </div>
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.logo.errors }}
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--file">
+            <input class="mdl-textfield__input" placeholder="Logo" type="text" id="uploadLogoFile" readonly/>
+
+            <div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
+                <i class="material-icons">attach_file</i>
+                <input type="file" id="logoBtn" name="logo">
+            </div>
+        </div>
+    </div>
+
+    <div class="mdl-cell--12-col fieldWrapper">
+        {{ form.banner.errors }}
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--file">
+            <input class="mdl-textfield__input" placeholder="Banner" type="text" id="uploadBannerFile" readonly/>
+
+            <div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
+                <i class="material-icons">attach_file</i>
+                <input type="file" id="bannerBtn" name="banner">
+            </div>
+        </div>
+    </div>
+
+
+    <hr/>
+    <div class="mdl-cell--12-col">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+                type="submit">
+            {% trans "Save" %}
+        </button>
+    </div>
+
+</form>
+
+{% endblock %}
+
+{% block js %}
+{{block.super}}
+<script>
+    document.getElementById("bannerBtn").onchange = function () {
+        document.getElementById("uploadBannerFile").value = this.files[0].name;
+    };
+    document.getElementById("logoBtn").onchange = function () {
+        document.getElementById("uploadLogoFile").value = this.files[0].name;
+    };
+</script>
+{% endblock %}

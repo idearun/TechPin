@@ -1,0 +1,13 @@
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+
+    <div class="mdl-tabs__tab-bar">
+        <a href="#about-panel" class="mdl-tabs__tab is-active">About</a>
+        <a href="#reviews-panel" class="mdl-tabs__tab">Reviews</a>
+        <!--?<a href="#related-panel" class="mdl-tabs__tab is-disabled">Related</a>-->
+    </div>
+
+    {% include "products/partials/about-panel.html" with id="about-panel" content="1" is_active=1 %}
+    {% include "products/partials/reviews-panel.html" with id="reviews-panel" content="2" %}
+    <!--?{% include "products/partials/related-panel.html" with id="related-panel" content="3" %}-->
+
+</div>

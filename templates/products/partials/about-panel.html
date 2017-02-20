@@ -1,0 +1,10 @@
+{% load i18n %}
+<div class="mdl-tabs__panel is-active" id="{{id}}">
+
+    {% include "common/version_info_table.html" with data=version.key_value_pairs  %}
+
+    <hr/>
+    <h6>{% trans 'About' %}</h6>
+    <p>{{ version.description_en }}</p>
+
+</div>

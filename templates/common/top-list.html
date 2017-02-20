@@ -1,0 +1,40 @@
+<!-- Top 25 (User's Rating) -->
+<div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-phone {{ disabled }}">
+    <h4>{{ title }}</h4>
+    <ul class="demo-list-two mdl-list" id="{{ list_id }}">
+        {% for product in list %}
+            <li class="mdl-list__item mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+            <a href="/{{ product.slug }}">
+                <span class="material-icons.md-48 mdl-list__item-icon top-list-logo"
+                        {% if product.version.logo %}
+                      style="background-image: url({{ product.version.logo.url }})"
+                        {% endif %}
+                >
+            </span>
+            </a>
+            <span>
+                <a href="/{{ product.slug }}">
+                    {{ product }}
+                </a>
+            </span>
+            <span class="mdl-list__item-sub-title">
+                {% for i in "xxxxx" %}
+                    {% if forloop.counter <= product.average_p_rate %}
+                        <i class="material-icons md-18 mdl-color-text--orange-600">star</i>
+                    {% else %}
+                        <i class="material-icons md-18">star</i>
+                    {% endif %}
+                {% endfor %}
+            </span>
+        </span>
+        <span class="mdl-list__item-secondary-content">
+            <a class="mdl-list__item-secondary-action" href="/{{ product.slug }}"
+               rel="noindex, nofollow">
+                <i class="material-icons md-36">arrow_forward</i>
+            </a>
+        </span>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

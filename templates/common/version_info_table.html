@@ -1,0 +1,33 @@
+<div class="mdl-cell mdl-cell--12-col-phone mdl-cell--8-col-desktop mdl-cell--2-offset-desktop
+                     mdl-cell--12-col-tablet">
+
+    <table class="mdl-data-table mdl-js-data-table mdl-cell mdl-cell--12-col">
+        <thead>
+        <tr>
+            <th class="mdl-data-table__cell--non-numeric" colspan="2">Version Info.</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for key, value in data.items %}
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">{{value.name}}</td>
+            <td class="mdl-data-table__cell--non-numeric">
+                {% if value.is_link %}
+                    <a href="{{ value.value }}" target="_blank" rel="nofollow">
+                        {% if value.logo %}
+                            <i class="fa fa-2x {{value.logo}}"></i>
+                        {% endif %}
+                    </a>
+                {% else %}
+                    {{value.value}}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+
+</div>

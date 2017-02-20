@@ -1,0 +1,36 @@
+{% load i18n %}
+<div class="mdl-tabs__panel" id="{{id}}">
+
+    <ul class="mdl-list">
+        {% for comment in comments %}
+        <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+                <i class="material-icons mdl-list__item-icon">person</i>
+                {{ comment.text }}
+            </span>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <hr/>
+
+    <form method="post" action="" class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
+        {% csrf_token %}
+        <input type="hidden" name="comment">
+
+        <!--?comment_form.text-->
+        <!-- Floating Multiline Textfield -->
+        <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--12-col">
+            <textarea type="text" rows="5" id="id_text" name="text"
+                      class="mdl-textfield__input"></textarea>
+            <label class="mdl-textfield__label" for="id_text">Write a review...</label>
+        </div>
+
+        <!-- Accent-colored raised button with ripple -->
+        <button type="submit"
+                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+            {% trans 'Post comment' %}
+        </button>
+    </form>
+
+</div>
